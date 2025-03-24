@@ -10,17 +10,16 @@ COPY package.json package-lock.json ./
 # Install dependencies in /src
 RUN npm ci
 
-RUN npm run build
 
 # Copy everything from the current directory (local) to the container's /src
 COPY . .
 # This copies the entire project directory (excluding .dockerignore files) to /src
 
+RUN npm run build
 
 # Expose port 3000
 EXPOSE 3000
 
 
-
 # Command to start the app (from the /src directory)
-CMD ["npm", "run", "start:dev"]
+CMD ["node", "dist/main"]

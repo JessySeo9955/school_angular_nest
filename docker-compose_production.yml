@@ -41,7 +41,7 @@ services:
       - ./back-end/school:/src  # Mount the local backend directory to the container
     environment:
       - NODE_ENV=production  # Set the environment to development
-    command: "npm run start:prod"  # Run the application in development mode
+    command: "node dist/main"  # Run the application in development mode
     depends_on:
       - db  # Wait for the database service to be available
 
