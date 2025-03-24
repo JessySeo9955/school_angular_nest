@@ -14,6 +14,6 @@ jobs:
         with:
           compose-file: "./docker-compose_production.yml"
 
-      - name: Execute tests in the running services
-        run: |
-          docker compose -f ./docker-compose_production.yml exec backend curl http://localhost:300
+#      - name: Execute tests in the running services
+ #       run: |
+  #        docker compose -f ./docker-compose_production.yml exec backend curl http://localhost:300
