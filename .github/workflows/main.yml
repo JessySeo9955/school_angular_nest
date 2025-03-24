@@ -16,4 +16,4 @@ jobs:
 
       - name: Execute tests in the running services
         run: |
-          docker compose exec backend curl http://localhost:3000
+          docker compose -f ./docker-compose_production.yml exec backend curl http://localhost:300
