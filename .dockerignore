@@ -1,5 +1,4 @@
 back-end/school/node_modules
-dist
 *.log
 *.md
 .git

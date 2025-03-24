@@ -1,5 +1,5 @@
 # Use official Node.js image
-FROM node:22-alpine As development
+FROM node:22-alpine As production
 
 # Set the working directory inside the container to /src
 WORKDIR /src
@@ -8,13 +8,12 @@ WORKDIR /src
 COPY package.json package-lock.json ./
 
 # Install dependencies in /src
-RUN npm ci
+RUN npm ci --only=production
 
-
-# Copy everything from the current directory (local) to the container's /src
+# Copy the source code to the container
 COPY . .
-# This copies the entire project directory (excluding .dockerignore files) to /src
 
+# Build the application (compile TypeScript to dist)
 RUN npm run build
 
 # Expose port 3000
@@ -22,4 +21,4 @@ EXPOSE 3000
 
 
 # Command to start the app (from the /src directory)
-CMD ["node", "dist/main"]
+CMD ["npm", "run", "start:prod"]
