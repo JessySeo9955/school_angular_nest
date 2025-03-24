@@ -10,11 +10,12 @@ COPY package.json package-lock.json ./
 # Install dependencies in /src
 RUN npm ci
 
-# Copy the source code to the container
-COPY . .
 
 # Build the application (compile TypeScript to dist)
 RUN npm run build
+
+# Copy the source code to the container
+COPY . .
 
 # Expose port 3000
 EXPOSE 3000
