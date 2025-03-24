@@ -39,6 +39,7 @@ services:
       - "3000:3000"  # Expose port 3000 for accessing the backend
     volumes:
       - ./back-end/school:/src  # Mount the local backend directory to the container
+      - /src/node_modules # Persist the node_modules in a volume to avoid reinstalling every time
     environment:
       - NODE_ENV=production  # Set the environment to development
     command: ["npm", "run", "start:prod"]   # Run the application in development mode

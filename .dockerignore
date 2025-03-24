@@ -1,4 +1,4 @@
-back-end/school/node_modules
+node_modules
 *.log
 *.md
 .git
