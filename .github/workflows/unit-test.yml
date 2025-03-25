@@ -8,10 +8,6 @@ on: [push]
 #        - 'back-end/**'
 #        - 'front-end/**'
 
-permissions:
-  contents: read
-  actions: read
-  checks: write
 
 jobs:
   build:
