@@ -31,15 +31,9 @@ jobs:
 
       - name: Test Report
         run: |
-          echo "========== test ============ success() df $(success())"
+          echo "========== test ============"
           docker ps
           docker exec $(docker ps -alq) cat ./src/test/report/test-report.html
-          if [ success() ]; then
-            echo "Test passed!"
-          else
-            echo "Test failed!" >&2
-            exit 1  # Exit with failure status
-          fi
         
           
         
