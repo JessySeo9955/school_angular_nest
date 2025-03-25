@@ -30,8 +30,11 @@ jobs:
           docker run --rm myapp:dev test
 
       - name: Test Report
+        if: failure()
         run: |
-          echo "docker exec -it test cat /src/test/report/test-report.html >> $GITHUB_STEP_SUMMARY"
+          docker exec -it test cat /src/test/report/test-report.html
+          exit 1
+          
         
       
 
