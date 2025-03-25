@@ -33,7 +33,8 @@ jobs:
         run: |
           echo "========== test ============"
           #docker ps
-          docker exec $(docker ps -alq) ls /root
+          docker inspect $(docker ps -alq)
+          docker exec $(docker ps -alq) ls /var
           
           docker cp $(docker ps -alq):/src/**/test/report .
           echo "cat *.html >> $GITHUB_STEP_SUMMARY"
