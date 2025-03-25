@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "========== test ============"
           docker ps
-          docker exec $(docker ps -alq) ls ./
+          docker exec $(docker ps -alq) ls /src
         
           
         
