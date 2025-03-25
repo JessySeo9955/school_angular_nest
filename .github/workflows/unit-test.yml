@@ -20,7 +20,7 @@ jobs:
 
       - name: Build and test
         run: |
-          docker build --target unittest -t myapp:dev .
+          docker build --target unittest -t myapp:dev ./back-end/school
           docker run --rm myapp:dev test
 
 
