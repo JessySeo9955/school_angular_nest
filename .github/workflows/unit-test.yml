@@ -33,10 +33,11 @@ jobs:
         run: |
           echo "========== test ============"
           #docker ps
-          docker inspect $(docker ps -alq)
-          docker exec -i $(docker ps -alq) pwd
+          #docker inspect $(docker ps -alq)
+          echo "docker exec -i $(docker ps -alq) pwd"
+          echo "docker exec -i $(docker ps -alq) ls"
           
-          #docker cp $(docker ps -alq):/src/**/test/report .
+          docker cp $(docker ps -alq):/src/test/report .
           ls .
           exit 1
         
