@@ -9,6 +9,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +22,7 @@ jobs:
 
       - name: Login to Heroku CLI
         run: |
-          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
+          echo $HEROKU_API_KEY | heroku auth:token
 
       # Step 4: Login to Heroku Container Registry
       - name: Login to Heroku Container Registry
