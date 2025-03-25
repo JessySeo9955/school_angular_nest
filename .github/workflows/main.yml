@@ -7,12 +7,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - id: checkout
+        name: Checkout
+        uses: actions/checkout@v4
 
       - name: Run docker compose
-        uses: hoverkraft-tech/compose-action@v2.0.1
-        with:
-          compose-file: "./docker-compose_production.yml"
+        run: docker-compose -f ./docker-compose_production.yml up -d
+
+      - name: Application health check
+        run: |
+          docker exec -it nestjs-backend bash
+          curl http://localhost:3000
 
 #      - name: Execute tests in the running services
  #       run: |
