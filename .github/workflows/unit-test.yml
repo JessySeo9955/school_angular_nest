@@ -37,7 +37,7 @@ jobs:
           #docker exec -it $(docker ps -alq) pwd
           #docker exec -it $(docker ps -alq) ls
           
-          docker cp $(docker ps -alq):/src .
+          docker cp $(docker ps -alq):. .
           ls .
           exit 1
         
