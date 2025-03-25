@@ -24,6 +24,11 @@ jobs:
         run: |
           echo $HEROKU_API_KEY | heroku auth:token
 
+        # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)
+      - name: Set Heroku stack to container
+        run: |
+          heroku stack:set container --app school-enrollment
+
       # Step 4: Login to Heroku Container Registry
       - name: Login to Heroku Container Registry
         run: |
