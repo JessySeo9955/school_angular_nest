@@ -34,10 +34,10 @@ jobs:
           echo "========== test ============"
           #docker ps
           docker inspect $(docker ps -alq)
-          docker exec $(docker ps -alq) pwd
+          docker exec -i $(docker ps -alq) pwd
           
           #docker cp $(docker ps -alq):/src/**/test/report .
-          $echo "cat *.html >> $GITHUB_STEP_SUMMARY"
+          ls .
           exit 1
         
         
