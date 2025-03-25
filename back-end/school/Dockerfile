@@ -8,7 +8,7 @@ RUN npm ci
 
 COPY . .
 
-CMD ["npm", "run", "test:output"]
+RUN npm run test:output
 
 FROM node:22-alpine As development
 
