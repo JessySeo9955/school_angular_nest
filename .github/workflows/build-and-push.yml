@@ -1,5 +1,4 @@
-name: Docker Compose Action
-
+name: Docker Build Push
 on: [push]
 
 jobs:

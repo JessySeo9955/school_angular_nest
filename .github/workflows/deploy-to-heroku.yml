@@ -1,0 +1,63 @@
+name: Deploy Docker Images to Heroku
+
+on:
+  workflow_run:
+    workflows: ["Docker Build and Push"]  # This should be the name of your first workflow
+    types:
+      - completed  # Trigger when the first workflow is completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Log in to Docker Hub
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Step 3: Log in to Heroku
+      - name: Log in to Heroku
+        uses: akshnz/heroku-cli-action@v1.0.2
+        with:
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+
+      # Step 4: Login to Heroku Container Registry
+      - name: Login to Heroku Container Registry
+        run: |
+          heroku container:login
+
+      # Step 5: Pull Docker images from Docker Hub
+      - name: Pull Docker images from Docker Hub
+        run: |
+          docker pull ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
+
+      # Step 6: Tag the Docker images for Heroku
+      - name: Tag Docker images for Heroku
+        run: |
+          docker tag ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest registry.heroku.com/school-enrollment/web
+
+      # Step 7: Push Docker images to Heroku Container Registry
+      - name: Push Docker images to Heroku
+        run: |
+          docker push registry.heroku.com/school-enrollment/web
+
+      # Optional: Wait for Heroku to be ready
+      - name: Wait for Heroku to be ready
+        run: sleep 10  # Wait for 10 seconds before releasing
+
+      # Step 8: Release the app on Heroku
+      - name: Release app on Heroku
+        run: |
+          heroku container:release web --app school-enrollment
+
+      # Optional: Clean up Docker images
+      - name: Clean up Docker images
+        run: |
+          docker rmi ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
