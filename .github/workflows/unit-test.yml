@@ -32,8 +32,13 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          docker ps
-          docker exec $(docker ps -alq) ls /src
+          #docker ps
+          #docker exec $(docker ps -alq) ls /src
+          
+          docker cp $(docker ps -alq):/src/test/report .
+          echo "cat *.html >> $GIUHUB_STEP_SUMMARY"
+          exit 1
+        
         
           
         
