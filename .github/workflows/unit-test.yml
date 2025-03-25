@@ -34,10 +34,10 @@ jobs:
           echo "========== test ============"
           #docker ps
           #docker inspect $(docker ps -alq)
-          echo "docker exec -i $(docker ps -alq) pwd"
-          echo "docker exec -i $(docker ps -alq) ls"
+          docker exec -it $(docker ps -alq) pwd
+          docker exec -it $(docker ps -alq) ls
           
-          docker cp $(docker ps -alq):/src/test/report .
+          docker cp $(docker ps -alq):/src/school/test/report .
           ls .
           exit 1
         
