@@ -27,11 +27,11 @@ jobs:
         continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./back-end/school
-          echo docker run --rm myapp:dev test >> $GIUHUB_STEP_SUMMARY
+          docker run --rm myapp:dev test
 
       - name: Test Report
         run: |
-          mkdir test/report
+          echo mkdir ./test/report
           docker cp $(docker ps -alq):/src/test/report ./test/report
           echo cat ./test/report/test-report.html >> $GIUHUB_STEP_SUMMARY
         
