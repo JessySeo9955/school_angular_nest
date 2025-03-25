@@ -11,9 +11,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout the code from the repository
-      - name: Checkout code
-        uses: actions/checkout@v2
+      # Step 1: Install Heroku CLI
+      - uses: actions/checkout@v2
+      - name: Install Heroku CLI
+        run: |
+          curl https://cli-assets.heroku.com/install.sh | sh 
+
+      - uses: akhileshns/heroku-deploy@v3.14.15 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "school-enrollment" #Must be unique in Heroku
+          heroku_email: ${{ vars.EMAIL }}
 
       # Step 2: Log in to Docker Hub
       - name: Log in to Docker Hub
@@ -21,17 +29,6 @@ jobs:
         with:
           username: ${{ vars.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-
-      # Step 3: Log in to Heroku
-      - name: Log in to Heroku
-        uses: akshnz/heroku-cli-action@v1.0.2
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-
-      # Step 4: Login to Heroku Container Registry
-      - name: Login to Heroku Container Registry
-        run: |
-          heroku container:login
 
       # Step 5: Pull Docker images from Docker Hub
       - name: Pull Docker images from Docker Hub
