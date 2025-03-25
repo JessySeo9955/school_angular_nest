@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run docker compose
-        run: docker-compose -f ./docker-compose_production.yml up -d
+        run: docker-compose -f ../../../docker-compose_production.yml up -d
 
       - name: Application health check
         run: |
