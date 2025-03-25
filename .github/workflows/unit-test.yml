@@ -33,7 +33,7 @@ jobs:
         run: |
           echo "========== test ============"
           docker ps
-          docker exec -it test cat /src/test/report/test-report.html
+          docker exec -it $(docker ps -alq) cat /src/test/report/test-report.html
           exit 1
           
         
