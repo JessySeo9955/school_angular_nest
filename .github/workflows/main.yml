@@ -11,8 +11,11 @@ jobs:
         name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run docker compose
-        run: docker-compose -f ../../../docker-compose_production.yml up -d
+      - name: Build docker
+        run: |
+          echo ---Building and starting up docker---
+          docker-compose -f ./school_angular_nest/docker-compose_production.yml up
+          echo --- Completed test cases ---
 
       - name: Application health check
         run: |
