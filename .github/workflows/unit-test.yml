@@ -38,7 +38,7 @@ jobs:
           #docker exec -it $(docker ps -alq) pwd
           #docker exec -it $(docker ps -alq) ls
           
-          docker cp $(docker ps -alq):./back-end .
+          docker cp $(docker ps -alq):/back-end .
           ls .
           exit 1
         
