@@ -23,6 +23,8 @@ services:
     build:
       context: ./back-end/school
       dockerfile: Dockerfile
+      args:
+        TARGET: production
     image: jessy9955/school_nest
     container_name: nestjs-backend
     restart: always
