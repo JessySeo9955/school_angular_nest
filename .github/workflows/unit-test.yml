@@ -27,11 +27,12 @@ jobs:
         continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./back-end/school
-          docker run --rm myapp:dev --name test
+          docker run --name test --rm myapp:dev 
 
       - name: Test Report
         run: |
           echo "========== test ============"
+          docker ps
           docker exec -it test cat /src/test/report/test-report.html
           exit 1
           
