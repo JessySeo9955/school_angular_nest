@@ -20,6 +20,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -37,7 +38,7 @@ jobs:
           #docker exec -it $(docker ps -alq) pwd
           #docker exec -it $(docker ps -alq) ls
           
-          docker cp $(docker ps -alq):. .
+          docker cp $(docker ps -alq):./back-end .
           ls .
           exit 1
         
