@@ -7,16 +7,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - id: checkout
+      - id: Checkout
         name: Checkout
         uses: actions/checkout@v4
         with:
           path: school_angular_nest
 
+      - id: Docker Login
+        name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Build docker
         run: |
           echo ---Building and starting up docker---
-          docker compose -f ./school_angular_nest/docker-compose_production.yml up -d
+          docker compose -f ./school_angular_nest/docker-compose_production.yml build --push
           echo --- Completed test cases ---
 
       - name: Docker ps
