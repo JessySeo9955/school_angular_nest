@@ -30,7 +30,6 @@ jobs:
           docker run --rm myapp:dev test
 
       - name: Test Report
-        if: failure()
         run: |
           echo "========== test ============"
           docker exec -it test cat /src/test/report/test-report.html
