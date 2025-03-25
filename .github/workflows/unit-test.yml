@@ -37,7 +37,9 @@ jobs:
           #docker exec -it $(docker ps -alq) ls
           
           docker cp $(docker ps -alq):. .
-          ls ./backend/school/test
+          ls .
+          ls /
+          ls /back-end
           exit 1
         
         
