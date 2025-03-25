@@ -22,8 +22,7 @@ jobs:
       - name: Application health check
         run: |
           docker ps
-          docker exec -it nestjs-backend bash
-          curl http://localhost:3000
+          docker exec -it nestjs-backend curl http://localhost:3000
 
 #      - name: Execute tests in the running services
  #       run: |
