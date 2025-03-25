@@ -18,17 +18,11 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Backend Build and test
+      - name: Backend Build
         run: |
           docker build --target unittest -t myapp:dev ./back-end/school
-          docker run --rm myapp:dev test
 
-
-      - name: Test Report
-        uses: dorny/test-reporter@v2
-        if: success() || failure()    # run this step even if previous step failed
-        with:
-          name: JEST Tests            # Name of the check run which will be created
-          path: reports/jest-*.xml    # Path to test results
-          reporter: jest-junit        # Format of test results
+      - name: Backend test
+        run: |
+          echo { docker run --rm myapp:dev test } >> $GITHUB_STEP_SUMMARY
 
