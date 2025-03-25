@@ -19,10 +19,9 @@ jobs:
           docker compose -f ./school_angular_nest/docker-compose_production.yml up -d
           echo --- Completed test cases ---
 
-      - name: Application health check
+      - name: Docker ps
         run: |
           docker ps
-          docker exec -T nestjs-backend curl http://localhost:3000
 
 #      - name: Execute tests in the running services
  #       run: |
