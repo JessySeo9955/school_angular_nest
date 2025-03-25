@@ -14,7 +14,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Setup UnitTest Environment
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -22,6 +21,6 @@ jobs:
       - name: Build and test
         run: |
           docker build --target unittest myapp:dev .
-          docker run --rm myapp:dev
+          docker run --rm myapp:dev test
 
 
