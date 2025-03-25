@@ -31,15 +31,8 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          #docker ps
-          #docker inspect $(docker ps -alq)
-          #docker exec -it $(docker ps -alq) pwd
-          #docker exec -it $(docker ps -alq) ls
-          
-          docker cp $(docker ps -alq):. .
-          ls .
-          ls /
-          ls /back-end
+          docker cp $(docker ps -alq):back-end .
+          ls back-end
           exit 1
         
         
