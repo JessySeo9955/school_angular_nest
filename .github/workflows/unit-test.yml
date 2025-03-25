@@ -30,7 +30,7 @@ jobs:
 
       - name: Test Report
         run: |
-          # docker cp $(docker ps -alq):/src/test/report ./test/report
+          docker cp $(docker ps -alq):/src/test/report ./test/report
           echo cat ./test/report/test-report.html >> $GIUHUB_STEP_SUMMARY
         
       
