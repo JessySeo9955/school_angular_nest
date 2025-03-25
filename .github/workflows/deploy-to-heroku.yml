@@ -12,15 +12,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Install Heroku CLI # <- IMPORTANT!!! Make sure the cli is installed before using the action
+        name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
-      - uses: akhileshns/heroku-deploy@v3.14.15 # This is the action
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: "school-enrollment" #Must be unique in Heroku
-          heroku_email: ${{ vars.EMAIL }}
-          stack: "heroku-20"
+          heroku --version  # Verify Heroku CLI installation
+
+      - name: Login to Heroku CLI
+        run: |
+          echo ${{ secrets.HEROKU_API_KEY }} | heroku auth:token
 
       # Step 4: Login to Heroku Container Registry
       - name: Login to Heroku Container Registry
