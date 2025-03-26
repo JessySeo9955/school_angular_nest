@@ -37,7 +37,7 @@ jobs:
           # exit 1
 
       - name: Test JUnit Report
-        id: junit-report
+        id: detailReport
         if: always()
         uses: mikepenz/action-junit-report@v5
         with:
@@ -47,7 +47,8 @@ jobs:
       - name: JUnit Report to Markdown
         if: always()
         run: |
-          echo "${{ steps.junit-report.outputs.detailed_summary }}" > "$GITHUB_STEP_SUMMARY"
+          echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
+          echo "${{ steps.detailReport.outputs.detailed_summary }}" > "$GITHUB_STEP_SUMMARY"
 
       - name: Convert HTML to Markdown
         if: always()
@@ -60,7 +61,6 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
           cat "${{ steps.html2markdown.outputs.markdown-file }}" > "$GITHUB_STEP_SUMMARY"   
         
           
