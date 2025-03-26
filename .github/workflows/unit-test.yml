@@ -42,7 +42,7 @@ jobs:
           access-token: ${{ secrets.GITHUB_TOKEN }}
           run-name: unit-test
           junit-file: junit.xml
-          working-directory: report
+          working-directory: back-end/school/test/report
 
       - name: Convert HTML to Markdown
         id: html2markdown
@@ -55,7 +55,7 @@ jobs:
         if: always()
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          ${{ steps.html2markdown.outputs.markdown-content }} > "$GITHUB_STEP_SUMMARY"   
+          echo ${{ steps.html2markdown.outputs.markdown-content }} > "$GITHUB_STEP_SUMMARY"   
         
       
 
