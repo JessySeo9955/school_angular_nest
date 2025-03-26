@@ -43,6 +43,9 @@ jobs:
           run-name: unit-test
           junit-file: junit.xml
           working-directory: report/
+        run: |
+          ls .
+          ls report
 
       - name: Convert HTML to Markdown
         id: html2markdown
@@ -55,7 +58,7 @@ jobs:
         if: always()
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          cat ${{ steps.html2markdown.outputs.markdown-file }} > "$GITHUB_STEP_SUMMARY"   
+          ${{ steps.html2markdown.outputs.markdown-content }} > "$GITHUB_STEP_SUMMARY"   
         
       
 
