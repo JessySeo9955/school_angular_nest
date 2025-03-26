@@ -1,10 +1,19 @@
 {
   "reporters": [
-    "default",
-    ["jest-html-reporter", {
-      "pageTitle": "Test Report",
-      "outputPath": "./test/report/test-report.html"
-    }]
+    [
+      "jest-html-reporter",
+      {
+        "pageTitle": "Test Report",
+        "outputPath": "./test/report/test-report.html"
+      }
+    ],
+    [
+      "github-actions",
+      {
+        "silent": false
+      }
+    ],
+    "summary"
   ],
   "moduleFileExtensions": [
     "js",
