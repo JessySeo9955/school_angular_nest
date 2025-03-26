@@ -34,10 +34,7 @@ jobs:
           docker cp $(docker ps -alq):. .
           ls back-end/school/test/report
           mv back-end/school/test/report/ ./report
-          ls .
-          ls report
-          # cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
-          # exit 1
+
 
       - name: Test JUnit Report
         id: detailReport
@@ -50,13 +47,6 @@ jobs:
 
 
 
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            report/*.xml
-            report/*.html
          
         
           
