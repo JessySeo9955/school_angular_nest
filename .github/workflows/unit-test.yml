@@ -30,8 +30,9 @@ jobs:
           echo "========== test ============"
           docker cp $(docker ps -alq):. .
           ls back-end/school/test/report
-          mv back-end/school/test/report/ .
+          mv back-end/school/test/report/ ./report
           ls .
+          ls report
           # cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
           # exit 1
 
@@ -41,14 +42,14 @@ jobs:
           access-token: ${{ secrets.GITHUB_TOKEN }}
           run-name: unit-test
           junit-file: junit.xml
-          working-directory: .
+          working-directory: report/
 
       - name: Convert HTML to Markdown
         id: html2markdown
         if: always()
         uses: rknj/html2markdown@v0.1.0
         with:
-          html-file: test-report.html
+          html-file: report/test-report.html
 
       - name: Show content of generated markdown file
         if: always()
