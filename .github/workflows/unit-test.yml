@@ -36,10 +36,12 @@ jobs:
           # cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
           # exit 1
 
-      - uses: mikepenz/action-junit-report@v5
+      - name: Test Result
+        uses: mikepenz/action-junit-report@v5
         if: always() # Or use "continue-on-error: true" in previous test step
         with:
           report_paths: 'report/junit.xml'
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Convert HTML to Markdown
         id: html2markdown
@@ -48,11 +50,12 @@ jobs:
         with:
           html-file: report/test-report.html
 
+
       - name: Show content of generated markdown file
         if: always()
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          echo "${{ steps.html2markdown.outputs.markdown-content }}" > "$GITHUB_STEP_SUMMARY"   
+          cat "${{ steps.html2markdown.outputs.markdown-file }}" > "$GITHUB_STEP_SUMMARY"   
         
       
 
