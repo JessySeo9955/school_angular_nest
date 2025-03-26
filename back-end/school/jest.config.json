@@ -1,13 +1,8 @@
 {
   "reporters": [
-    [
-      "github-actions",
-      {
-        "silent": false
-      }
+      "default",
+      ["<rootDir>/custom-reporter.js"]
     ],
-    "default"
-  ],
   "moduleFileExtensions": [
     "js",
     "json",
