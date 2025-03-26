@@ -28,9 +28,8 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          docker cp $(docker ps -alq):. .
+          docker cp $(docker ps -alq):/school .
           ls . -a
-          ls back-end -a
           cat back-end/school/test/report/*.html >> "$GITHUB_STEP_SUMMARY"
           exit 1
         
