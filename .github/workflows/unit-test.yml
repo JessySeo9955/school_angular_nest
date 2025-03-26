@@ -33,7 +33,7 @@ jobs:
           echo "========== test ============"
           docker cp $(docker ps -alq):/ .
           ls back-end/school/
-          echo cat back-end/school/test/report/*.html >> "$GITHUB_STEP_SUMMARY"
+          cat back-end/school/test/report/*.html >> "$GITHUB_STEP_SUMMARY"
           exit 1
         
         
