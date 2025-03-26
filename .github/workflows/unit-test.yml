@@ -58,12 +58,15 @@ jobs:
 
       - name: Show content of generated markdown file
         if: always()
+        continue-on-error: true
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
           cat "${{ steps.html2markdown.outputs.markdown-file }}" > "$GITHUB_STEP_SUMMARY"   
         
       - name: Check on failures
-        if: steps.hello.test_result != '0'
-        run: exit 1
+        if: steps.test_result.conclusion != 'success'
+        run: |
+          exit 1
+          
 
 
