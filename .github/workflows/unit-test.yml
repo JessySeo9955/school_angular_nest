@@ -29,8 +29,8 @@ jobs:
         run: |
           echo "========== test ============"
           docker cp $(docker ps -alq):. .
-          ls . -a
-          cat $(find . -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
+          ls back-end/school -a
+          cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
           exit 1
         
         
