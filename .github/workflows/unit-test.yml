@@ -1,6 +1,6 @@
 name: Unit Test
 
-on: [push]
+on: [push, pull-requests]
 #  workflow_dispatch:
 #    push:
 #      branches: ["feature/*"]
@@ -48,13 +48,16 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
 
-      - name: JUnit Report to Markdown
-        if: always()
-        run: |
-          echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          echo "${{ steps.detailReport.outputs.flaky_summary }}" > "$GITHUB_STEP_SUMMARY"
 
- 
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            report/*.xml
+            report/*.html
+         
         
           
 
