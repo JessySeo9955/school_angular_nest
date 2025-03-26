@@ -31,8 +31,8 @@ jobs:
         if: always()
         run: |
           docker cp $(docker ps -alq):. .
-          ls back-end/school/test/report
-          mv back-end/school/test/report/ ./report
+          ls back-end/school/test/
+          mv back-end/school/test/ ./test
 
 
       - name: Junit Summary Report
@@ -40,17 +40,13 @@ jobs:
         if: always()
         uses: mikepenz/action-junit-report@v5
         with:
-          report_paths: 'report/junit.xml'
+          report_paths: 'test/report/junit.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
           job_name: 'backend-unit-test'
+          detailed_summary: true
+          job_summary: true
 
-      - name: Junit Report
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            report/*.xml
 
          
         
