@@ -31,7 +31,7 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          docker cp $(docker ps -alq):back-end .
+          docker cp $(docker ps -alq):/ .
           ls back-end
           exit 1
         
