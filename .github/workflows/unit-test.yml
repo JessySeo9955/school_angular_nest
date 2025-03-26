@@ -46,6 +46,7 @@ jobs:
           job_name: 'backend-unit-test'
           detailed_summary: true
           job_summary: true
+          follow_symlink: true
 
 
          
