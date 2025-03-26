@@ -23,14 +23,14 @@ jobs:
         continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./back-end/school
-          docker run --name test --rm myapp:dev ls 
+          docker run --name test --rm myapp:dev 
 
       - name: Test Report
         run: |
           echo "========== test ============"
           docker cp $(docker ps -alq):. .
-          ls school -a
-          cat school/test/report/*.html >> "$GITHUB_STEP_SUMMARY"
+          ls . -a
+          cat $(find . -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
           exit 1
         
         
