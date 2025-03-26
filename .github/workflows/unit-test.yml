@@ -34,7 +34,6 @@ jobs:
           ls back-end/school/test/
           mv back-end/school/test/ ./test
 
-
       - name: Junit Summary Report
         id: detailReport
         if: always()
@@ -44,6 +43,40 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
           job_name: 'backend-unit-test'
+          detailed_summary: true
+          job_summary: true
+          follow_symlink: true
+
+  frontend-unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Backend Build and test
+        run: |
+          docker build --target unittest -t myapp:dev ./front-end
+          docker run --name test --rm myapp:dev 
+
+      - name: Frontend Test Result Copy
+        if: always()
+        run: |
+          docker cp $(docker ps -alq):. .
+          ls front-end/test/
+          mv front-end/test/ ./test
+
+      - name: Junit Summary Report
+        id: detailReport
+        if: always()
+        uses: mikepenz/action-junit-report@v5
+        with:
+          report_paths: 'test/report/junit.xml'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          comment: true
+          job_name: 'frontend-unit-test'
           detailed_summary: true
           job_summary: true
           follow_symlink: true
