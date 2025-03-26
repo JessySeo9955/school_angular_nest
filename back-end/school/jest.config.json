@@ -6,7 +6,7 @@
         "silent": false
       }
     ],
-    "summary"
+    "default"
   ],
   "moduleFileExtensions": [
     "js",
