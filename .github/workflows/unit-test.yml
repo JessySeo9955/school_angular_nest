@@ -36,14 +36,13 @@ jobs:
           mv back-end/school/test/report/ ./report
 
 
-      - name: Test JUnit Report
-        id: detailReport
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
-        uses: mikepenz/action-junit-report@v5
         with:
-          report_paths: 'report/junit.xml'
-          token: ${{ secrets.GITHUB_TOKEN }}
-          comment: true
+          files: |
+            report/*.xml      
+      
 
 
 
