@@ -36,13 +36,10 @@ jobs:
           # cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
           # exit 1
 
-      - uses: IgnusG/jest-report-action@v2.3.3
+      - uses: mikepenz/action-junit-report@v5
         if: always() # Or use "continue-on-error: true" in previous test step
         with:
-          access-token: ${{ secrets.GITHUB_TOKEN }}
-          run-name: unit-test
-          junit-file: junit.xml
-          working-directory: back-end/school/test/report
+          report_paths: 'report/junit.xml'
 
       - name: Convert HTML to Markdown
         id: html2markdown
@@ -55,7 +52,7 @@ jobs:
         if: always()
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          echo ${{ steps.html2markdown.outputs.markdown-content }} > "$GITHUB_STEP_SUMMARY"   
+          echo "${{ steps.html2markdown.outputs.markdown-content }}" > "$GITHUB_STEP_SUMMARY"   
         
       
 
