@@ -42,10 +42,7 @@ jobs:
           access-token: ${{ secrets.GITHUB_TOKEN }}
           run-name: unit-test
           junit-file: junit.xml
-          working-directory: report/
-        run: |
-          ls .
-          ls report
+          working-directory: report
 
       - name: Convert HTML to Markdown
         id: html2markdown
