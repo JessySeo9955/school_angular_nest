@@ -1,19 +1,19 @@
 name: Unit Test
 
 on: [push]
-#  workflow_dispatch:
-#    push:
-#      branches: ["feature/*"]
-#      paths:
-#        - 'back-end/**'
-#        - 'front-end/**'
+#workflow_dispatch:
+#  push:
+#    branches: ["feature/*"]
+#    paths:
+#      - 'back-end/**'
+#      - 'front-end/**'
 
 permissions:
   checks: write
-  pull-requests: write # only required if `comment: true` was enabled
+  pull-requests: write
 
 jobs:
-  unit-test:
+  backend-unit-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,16 +27,15 @@ jobs:
           docker build --target unittest -t myapp:dev ./back-end/school
           docker run --name test --rm myapp:dev 
 
-      - name: Test Report
+      - name: Backend Test Result Copy
         if: always()
         run: |
-          echo "========== test ============"
           docker cp $(docker ps -alq):. .
           ls back-end/school/test/report
           mv back-end/school/test/report/ ./report
 
 
-      - name: Test JUnit Report
+      - name: Junit Summary Report
         id: detailReport
         if: always()
         uses: mikepenz/action-junit-report@v5
@@ -44,8 +43,9 @@ jobs:
           report_paths: 'report/junit.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
+          job_name: 'backend-unit-test'
 
-      - name: Publish Test Results
+      - name: Junit Report
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
