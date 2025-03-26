@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="1" errors="0" time="2.569">
+  <testsuite name="AppController" errors="0" failures="1" skipped="0" timestamp="2025-03-26T02:18:25" time="2.283" tests="1">
+    <testcase classname="AppController root should return &quot;Hello World!&quot;" name="AppController root should return &quot;Hello World!&quot;" time="0.014">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: &quot;Hello Worldsssdfsdfs!&quot;
+Received: &quot;testf!&quot;
+    at Object.&lt;anonymous&gt; (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\src\app.controller.spec.ts:20:40)
+    at Promise.then.completed (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\utils.js:298:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\utils.js:231:10)
+    at _callCircusTest (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:316:40)
+    at _runTest (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:252:3)
+    at _runTestsForDescribeBlock (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:126:9)
+    at _runTestsForDescribeBlock (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:121:9)
+    at _runTestsForDescribeBlock (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:121:9)
+    at run (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\run.js:71:3)
+    at runAndTransformResultsToJestFormat (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+    at jestAdapter (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+    at runTestInternal (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-runner\build\runTest.js:367:16)
+    at runTest (C:\Users\bethd\WebstormProjects\school_gpa\back-end\school\node_modules\jest-runner\build\runTest.js:444:34)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

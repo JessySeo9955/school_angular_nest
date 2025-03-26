@@ -1,8 +1,21 @@
 {
   "reporters": [
-      "default",
-      ["<rootDir>/custom-reporter.js"]
+    "default",
+    [
+      "jest-junit",
+      {
+        "outputDirectory": "./test/report",
+        "outputName": "junit.xml"
+      }
     ],
+    [
+      "jest-html-reporter",
+      {
+        "pageTitle": "Test Report",
+        "outputPath": "/test/report/test-report.html"
+      }
+    ]
+  ],
   "moduleFileExtensions": [
     "js",
     "json",

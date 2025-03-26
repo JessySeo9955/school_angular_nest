@@ -28,12 +28,33 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          # docker cp $(docker ps -alq):. .
+          docker cp $(docker ps -alq):. .
           # cat $(find back-end/ -type f -name test-report.html) >> "$GITHUB_STEP_SUMMARY"
-          exit 1
-        
-        
-          
+          # exit 1
+
+      - uses: IgnusG/jest-report-action@v2.3.3
+        if: always() # Or use "continue-on-error: true" in previous test step
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: back-end/school/test/report
+
+      - uses: IgnusG/jest-report-action@v2.3.3
+        if: always() # Or use "continue-on-error: true" in previous test step
+        with:
+          access-token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: back-end/school/test/report
+
+      - name: Convert HTML to Markdown
+        id: html2markdown
+        if: always()
+        uses: rknj/html2markdown@v0.1.0
+        with:
+          html-file: "back-end/school/test/report/test-report.html"
+
+      - name: Show content of generated markdown file
+        if: always()
+        run: |
+          cat ${{ steps.html2markdown.outputs.markdown-file }} >> "$GITHUB_STEP_SUMMARY"   
         
       
 
