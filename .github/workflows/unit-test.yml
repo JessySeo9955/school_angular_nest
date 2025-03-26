@@ -49,13 +49,18 @@ jobs:
         uses: rknj/html2markdown@v0.1.0
         with:
           html-file: report/test-report.html
+          token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Test Markdown
+        run: |
+          echo "========== Markdown ============"
+          ls .
 
       - name: Show content of generated markdown file
         if: always()
         run: |
           echo "### test result ###" > "$GITHUB_STEP_SUMMARY"  
-          cat "${{ steps.html2markdown.outputs.markdown-file }}" > "$GITHUB_STEP_SUMMARY"   
+          cat $(find . -type f -name *.md) > "$GITHUB_STEP_SUMMARY"   
         
       
 
