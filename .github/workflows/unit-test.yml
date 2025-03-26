@@ -27,14 +27,14 @@ jobs:
           docker build --target unittest -t myapp:dev ./back-end/school
           docker run --name test --rm myapp:dev 
 
-      - name: Backend Test Result Copy
+      - name: Backend Test Result
         if: always()
         run: |
           docker cp $(docker ps -alq):. .
           ls back-end/school/test/
           mv back-end/school/test/ ./test
 
-      - name: Junit Summary Report
+      - name: Backend Junit Report
         id: detailReport
         if: always()
         uses: mikepenz/action-junit-report@v5
@@ -42,7 +42,7 @@ jobs:
           report_paths: 'test/report/junit.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
-          job_name: 'backend-unit-test'
+          job_name: 'backend'
           detailed_summary: true
           job_summary: true
           follow_symlink: true
@@ -56,19 +56,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Backend Build and test
+      - name: Frontend Build and test
         run: |
           docker build --target unittest -t myapp:dev ./front-end
           docker run --name test --rm myapp:dev 
 
-      - name: Frontend Test Result Copy
+      - name: Frontend Test Result
         if: always()
         run: |
           docker cp $(docker ps -alq):. .
           ls front-end/test/
           mv front-end/test/ ./test
 
-      - name: Junit Summary Report
+      - name: Frontend Junit Report
         id: detailReport
         if: always()
         uses: mikepenz/action-junit-report@v5
@@ -76,7 +76,7 @@ jobs:
           report_paths: 'test/report/junit.xml'
           token: ${{ secrets.GITHUB_TOKEN }}
           comment: true
-          job_name: 'frontend-unit-test'
+          job_name: 'frontend'
           detailed_summary: true
           job_summary: true
           follow_symlink: true
