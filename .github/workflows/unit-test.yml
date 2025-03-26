@@ -15,9 +15,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          path: ./back-end/school
-
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -31,7 +28,7 @@ jobs:
       - name: Test Report
         run: |
           echo "========== test ============"
-          docker cp $(docker ps -alq):/src .
+          docker cp $(docker ps -alq):. .
           ls . -a
           ls back-end -a
           cat back-end/school/test/report/*.html >> "$GITHUB_STEP_SUMMARY"
