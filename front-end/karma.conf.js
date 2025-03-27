@@ -34,7 +34,7 @@ module.exports = function (config) {
     },
     reporters: ['progress', 'kjhtml','junit'],
     junitReporter: {
-      outputDir: 'test/result',  // Directory where the results will be saved
+      outputDir: 'test/report',  // Directory where the results will be saved
       outputFile: 'junit.xml',  // Name of the output file
       useBrowserName: false,  // Do not include browser name in the file name
     },
