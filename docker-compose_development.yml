@@ -1,11 +1,9 @@
 
 services:
-
   db:
     build:
       context: ./postgres
       dockerfile: Dockerfile
-    image: jessy9955/school_postgres
     container_name: postgres
     restart: always
     environment:
@@ -32,25 +30,42 @@ services:
       - db
 
   # Backend service (NestJS)
-#  backend:
-#    build:
-#      context: ./back-end/school
-#      dockerfile: Dockerfile
-#    container_name: nestjs-backend
-#    restart: always
-#    ports:
-#      - "3000:3000"  # Expose port 3000 for accessing the backend
-#    volumes:
-#      - ./back-end/school:/src  # Mount the local backend directory to the container
-#    environment:
-#      - NODE_ENV=development  # Set the environment to development
-#    command: "npm run start:dev"  # Run the application in development mode
-#    depends_on:
-#      - db  # Wait for the database service to be available
+  backend:
+    build:
+      context: ./back-end/school
+      dockerfile: Dockerfile
+      args:
+        TARGET: development
+    container_name: nestjs-backend
+    ports:
+      - "3000:3000"  # Expose port 3000 for accessing the backend
+    environment:
+      - NODE_ENV=development  # Set the environment to development
+    volumes:
+      - ./back-end/school:/src  # Sync the local front-end folder to /app in the container
+      - /src/node_modules
+    command: "npm run start:watch"  # Run the application in development mode
+    depends_on:
+      - db
 
-
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+      args:
+        TARGET: development
+    container_name: angular
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./front-end:/src  # Sync the local front-end folder to /app in the container
+      - /src/node_modules
+    environment:
+      - NODE_ENV=development  # Set the environment to development
+    command: "npm run start:watch"
 
 
 # Named volumes to persist PostgreSQL data
 volumes:
   pgdata:
+  ignore:

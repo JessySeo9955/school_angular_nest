@@ -1,4 +1,4 @@
-
+version: "1.0"
 services:
   db:
     build:
@@ -31,13 +31,32 @@ services:
     ports:
       - "3000:3000"  # Expose port 3000 for accessing the backend
     volumes:
-      - ./back-end/school:/src  # Mount the local backend directory to the container
       - /src/node_modules # Persist the node_modules in a volume to avoid reinstalling every time
     environment:
       - NODE_ENV=production  # Set the environment to development
     command: ["npm", "run", "start:prod"]   # Run the application in development mode
     depends_on:
       - db  # Wait for the database service to be available
+
+  # frontend service (Angular)
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+      args:
+        TARGET: production
+    image: jessy9955/school_angular
+    container_name: angular-frontend
+    restart: always
+    ports:
+      - "4000:4000"  # Expose port 3000 for accessing the frontend
+    volumes:
+      - /src/node_modules # Persist the node_modules in a volume to avoid reinstalling every time
+    environment:
+      - NODE_ENV=production  # Set the environment to development
+    command: ["npm", "run", "serve:ssr:front-end"]   # Run the application in development mode
+    depends_on:
+      - backend  # Wait for the database service to be available
 
 
 # Named volumes to persist PostgreSQL data
