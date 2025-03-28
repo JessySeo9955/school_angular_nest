@@ -19,7 +19,8 @@ RUN apk update && apk add --no-cache \
   && rm -rf /var/cache/apk/*
 
 # Set environment variable for ChromeHeadless to point to Chromium binary
-ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROME_BIN="/usr/bin/chromium-browser"
+RUN echo $CHROME_BIN
 
 RUN npm install -g --unsafe-perm nodemon @angular/cli
 RUN npm install

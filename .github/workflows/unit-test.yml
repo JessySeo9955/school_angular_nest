@@ -59,13 +59,13 @@ jobs:
 
       - name: Frontend Build and test
         run: |
+          EXPORT CHROME_BIN=''
           docker build --target unittest -t myapp:dev ./front-end
           docker run --name frontend --rm myapp:dev 
 
       - name: Frontend Test Result
         if: always()
         run: |
-          echo $CHROME_BIN
           docker cp $(docker ps -alq):. .
           ls front-end/test/
           mv front-end/test/ ./test
