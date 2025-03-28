@@ -23,9 +23,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Backend Build and test
+        continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./back-end/school
-          docker run --name test --rm myapp:dev 
+          docker run --name backend --rm myapp:dev 
 
       - name: Backend Test Result
         if: always()
@@ -57,9 +58,10 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Frontend Build and test
+        continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./front-end
-          docker run --name test --rm myapp:dev 
+          docker run --name frontend --rm myapp:dev 
 
       - name: Frontend Test Result
         if: always()

@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<testsuite name="Chrome 134.0.0.0 (Windows 10)" package="" timestamp="2025-03-27T17:06:40" id="0" hostname="Jihee" tests="3" errors="0" failures="0" time="0.257">
+<testsuite name="Chrome Headless 134.0.0.0 (Windows 10)" package="" timestamp="2025-03-27T17:42:14" id="0" hostname="Jihee" tests="3" errors="0" failures="0" time="0.097">
   <properties>
-    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36"/>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/134.0.0.0 Safari/537.36"/>
   </properties>
-  <testcase name="AppComponent should have the 'front-end' title" time="0.218" classname="AppComponent"/>
-  <testcase name="AppComponent should render title" time="0.02" classname="AppComponent"/>
-  <testcase name="AppComponent should create the app" time="0.019" classname="AppComponent"/>
+  <testcase name="AppComponent should create the app" time="0.083" classname="AppComponent"/>
+  <testcase name="AppComponent should render title" time="0.009" classname="AppComponent"/>
+  <testcase name="AppComponent should have the 'front-end' title" time="0.005" classname="AppComponent"/>
   <system-out>
     <![CDATA[
 ]]>
