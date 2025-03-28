@@ -1,16 +1,15 @@
 name: "build and push template"
 
 inputs:
-  container-name:
-    description: docker container name
-    required: true
-    default: 'school_nest:latest'
   app-name:
     description: heroku app name
     required: true
     default: 'school-enrollment'
+
 runs:
   using: composite
+  env:
+    HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
   steps:
       - uses: actions/checkout@v4
 
