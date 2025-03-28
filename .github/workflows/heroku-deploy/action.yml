@@ -1,6 +1,10 @@
 name: "build and push template"
 
 inputs:
+  container-name:
+    description: docker container name
+    required: true
+    default: 'school_nest:latest'
   app-name:
     description: heroku app name
     required: true
