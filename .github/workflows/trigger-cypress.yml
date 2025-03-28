@@ -1,7 +1,9 @@
 name: Run Cypress
 on:
   workflow_run:
-    workflows: ["push"]  # The name of the first workflow (the one that triggers this one)
+    workflows: ["Unit Test"]  # This should be the name of your first workflow
+    types:
+      - completed  # Trigger when the first workflow is completed
 
   workflow_dispatch:
     inputs:
