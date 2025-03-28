@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:output": "ng test --no-watch --no-progress --reporters=progress --browsers=ChromeHeadless && exit 0",
+    "test:output": "ng test --no-watch --no-progress --reporters=progress --browsers=ChromeHeadlessCustom && exit 0",
     "serve:ssr:front-end": "node dist/front-end/server/server.mjs"
   },
   "private": true,

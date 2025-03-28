@@ -41,7 +41,7 @@ module.exports = function (config) {
     browsers: ['Chrome'],
     restartOnFileChange: true,
     customLaunchers: {
-      ChromeHeadless: {
+      ChromeHeadlessCustom: {
         base: 'ChromeHeadless',
         flags: [
           '--no-sandbox',  // Ensure it's usable in a container
