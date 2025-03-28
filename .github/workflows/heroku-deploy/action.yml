@@ -4,7 +4,9 @@ inputs:
   docker_username:
     description: dockerhub username
     required: true
-    default: ''
+  heroku_secret:
+    description: heroku api key
+    required: true
   container-name:
     description: docker container name
     required: true
@@ -27,6 +29,8 @@ runs:
 
       - name: Login to Heroku CLI
         shell: bash
+        env:
+          HEROKU_API_KEY: ${{ inputs.heroku_secret }}
         run: |
           echo $HEROKU_API_KEY | heroku auth:token
 
