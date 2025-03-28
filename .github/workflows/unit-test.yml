@@ -65,6 +65,7 @@ jobs:
       - name: Frontend Test Result
         if: always()
         run: |
+          echo $CHROME_BIN
           docker cp $(docker ps -alq):. .
           ls front-end/test/
           mv front-end/test/ ./test
