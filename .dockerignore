@@ -3,3 +3,5 @@ node_modules
 *.md
 .git
 .idea
+*.drawio
+*.bkp
