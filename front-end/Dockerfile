@@ -1,13 +1,4 @@
 FROM node:22-alpine AS unittest
-WORKDIR /src
-COPY package.json package-lock.json ./
-RUN npm ci
-COPY . .
-RUN npm run test:output
-
-FROM node:22-alpine AS development
-WORKDIR /src
-COPY package.json package-lock.json ./
 
 # Install dependencies for Chromium and other tools
 RUN apk update && apk add --no-cache \
@@ -20,7 +11,16 @@ RUN apk update && apk add --no-cache \
 
 # Set environment variable for ChromeHeadless to point to Chromium binary
 ENV CHROME_BIN="/usr/bin/chromium-browser"
-RUN echo $CHROME_BIN
+
+WORKDIR /src
+COPY package.json package-lock.json ./
+RUN npm ci
+COPY . .
+RUN npm run test:output
+
+FROM node:22-alpine AS development
+WORKDIR /src
+COPY package.json package-lock.json ./
 
 RUN npm install -g --unsafe-perm nodemon @angular/cli
 RUN npm install
