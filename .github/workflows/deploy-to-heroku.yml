@@ -15,51 +15,62 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - id: backend
+        uses: ./.github/actions/heroku-deploy
+        with:
+          container-name: 'school_nest:latest'
+          app-name: 'school-enrollment'
+      - id: frontend
+        uses: ./.github/actions/heroku-deploy
+        with:
+          container-name: 'school_angular:latest'
+          app-name: 'school-enrollment-front'
 
-      - name: Install Heroku CLI
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh
-          heroku --version  # Verify Heroku CLI installation
 
-      - name: Login to Heroku CLI
-        run: |
-          echo $HEROKU_API_KEY | heroku auth:token
-
-        # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)
-      - name: Set Heroku stack to container
-        run: |
-          heroku stack:set container --app school-enrollment
-
-      # Step 4: Login to Heroku Container Registry
-      - name: Login to Heroku Container Registry
-        run: |
-          heroku container:login
-
-      # Step 5: Pull Docker images from Docker Hub
-      - name: Pull Docker images from Docker Hub
-        run: |
-          docker pull ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
-
-      # Step 6: Tag the Docker images for Heroku
-      - name: Tag Docker images for Heroku
-        run: |
-          docker tag ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest registry.heroku.com/school-enrollment/web
-
-      # Step 7: Push Docker images to Heroku Container Registry
-      - name: Push Docker images to Heroku
-        run: |
-          docker push registry.heroku.com/school-enrollment/web
-
-      # Optional: Wait for Heroku to be ready
-      - name: Wait for Heroku to be ready
-        run: sleep 10  # Wait for 10 seconds before releasing
-
-      # Step 8: Release the app on Heroku
-      - name: Release app on Heroku
-        run: |
-          heroku container:release web --app school-enrollment
-
-      # Optional: Clean up Docker images
-      - name: Clean up Docker images
-        run: |
-          docker rmi ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
+#      - name: Install Heroku CLI
+#        run: |
+#          curl https://cli-assets.heroku.com/install.sh | sh
+#          heroku --version  # Verify Heroku CLI installation
+#
+#      - name: Login to Heroku CLI
+#        run: |
+#          echo $HEROKU_API_KEY | heroku auth:token
+#
+#        # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)
+#      - name: Set Heroku stack to container
+#        run: |
+#          heroku stack:set container --app school-enrollment
+#
+#      # Step 4: Login to Heroku Container Registry
+#      - name: Login to Heroku Container Registry
+#        run: |
+#          heroku container:login
+#
+#      # Step 5: Pull Docker images from Docker Hub
+#      - name: Pull Docker images from Docker Hub
+#        run: |
+#          docker pull ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
+#
+#      # Step 6: Tag the Docker images for Heroku
+#      - name: Tag Docker images for Heroku
+#        run: |
+#          docker tag ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest registry.heroku.com/school-enrollment/web
+#
+#      # Step 7: Push Docker images to Heroku Container Registry
+#      - name: Push Docker images to Heroku
+#        run: |
+#          docker push registry.heroku.com/school-enrollment/web
+#
+#      # Optional: Wait for Heroku to be ready
+#      - name: Wait for Heroku to be ready
+#        run: sleep 10  # Wait for 10 seconds before releasing
+#
+#      # Step 8: Release the app on Heroku
+#      - name: Release app on Heroku
+#        run: |
+#          heroku container:release web --app school-enrollment
+#
+#      # Optional: Clean up Docker images
+#      - name: Clean up Docker images
+#        run: |
+#          docker rmi ${{ vars.DOCKERHUB_USERNAME }}/school_nest:latest
