@@ -1,20 +1,4 @@
 name: Run Cypress
-#on:
-#  workflow_run:
-#    workflows: ["Unit Test"]  # This should be the name of your first workflow
-#    types:
-#      - completed  # Trigger when the first workflow is completed
-#
-#  workflow_dispatch:
-#    inputs:
-#      target_service:
-#        description: 'Service to deploy'
-#        required: true
-#        default: 'frontend'
-#      target_version:
-#        description: 'Version to deploy'
-#        required: true
-#        default: 'v1.0.0'
 
 on:
   workflow_run:
