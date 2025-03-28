@@ -1,6 +1,9 @@
 name: "build and push template"
 
 inputs:
+  docker_username:
+    description: dockerhub username
+    required: true
   heroku_secret:
     description: heroku api key
     required: true
@@ -34,37 +37,37 @@ runs:
         run: |
           heroku stack:set container --app ${{inputs.app-name}}
 
-  # Step 4: Login to Heroku Container Registry
+      # Step 4: Login to Heroku Container Registry
       - name: Login to Heroku Container Registry
         run: |
           heroku container:login
 
-  # Step 5: Pull Docker images from Docker Hub
+      # Step 5: Pull Docker images from Docker Hub
       - name: Pull Docker images from Docker Hub
         run: |
-          docker pull ${{ vars.DOCKERHUB_USERNAME }}/${{inputs.container-name}}
+          docker pull ${{ inputs.docker_username }}/${{inputs.container-name}}
 
-  # Step 6: Tag the Docker images for Heroku
+      # Step 6: Tag the Docker images for Heroku
       - name: Tag Docker images for Heroku
         run: |
-          docker tag ${{ vars.DOCKERHUB_USERNAME }}/${{inputs.container-name}} registry.heroku.com/${{inputs.app-name}}/web
+          docker tag ${{ inputs.docker_username }}/${{inputs.container-name}} registry.heroku.com/${{inputs.app-name}}/web
 
-  # Step 7: Push Docker images to Heroku Container Registry
+      # Step 7: Push Docker images to Heroku Container Registry
       - name: Push Docker images to Heroku
         run: |
           docker push registry.heroku.com/${{inputs.app-name}}/web
 
-  # Optional: Wait for Heroku to be ready
+      # Optional: Wait for Heroku to be ready
       - name: Wait for Heroku to be ready
         run: sleep 10  # Wait for 10 seconds before releasing
 
-  # Step 8: Release the app on Heroku
+      # Step 8: Release the app on Heroku
       - name: Release app on Heroku
         run: |
           heroku container:release web --app ${{inputs.app-name}}
 
-  # Optional: Clean up Docker images
+      # Optional: Clean up Docker images
       - name: Clean up Docker images
         run: |
-          docker rmi ${{ vars.DOCKERHUB_USERNAME }}/${{inputs.container-name}}
+          docker rmi ${{ inputs.docker_username }}/${{inputs.container-name}}
 
