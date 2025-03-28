@@ -1,13 +1,17 @@
 FROM node:22-alpine AS unittest
 
-# Install dependencies for Chromium and other tools
+
+# Install Chromium and necessary dependencies
 RUN apk update && apk add --no-cache \
-  chromium \
-  chromixx \
-  && apk add --no-cache --virtual .build-deps \
-  bash \
-  curl \
-  && rm -rf /var/cache/apk/*
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ttf-freefont \
+    && rm -rf /var/cache/apk/*
+
+# Set the CHROME_BIN environment variable to point to the Chromium binary
+ENV CHROME_BIN=/usr/bin/chromium-browser
 
 # Set environment variable for ChromeHeadless to point to Chromium binary
 ENV CHROME_BIN="/usr/bin/chromium-browser"
