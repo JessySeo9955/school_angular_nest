@@ -10,6 +10,8 @@ jobs:
   deploy:
     #if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    env:
+      HEROKU_API_KEY: ${{ inputs.heroku_secret }}
 
     steps:
       - uses: actions/checkout@v4
