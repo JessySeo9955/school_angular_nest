@@ -58,7 +58,6 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Frontend Build and test
-        continue-on-error: true
         run: |
           docker build --target unittest -t myapp:dev ./front-end
           docker run --name frontend --rm myapp:dev 

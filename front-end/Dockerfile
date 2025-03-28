@@ -8,6 +8,19 @@ RUN npm run test:output
 FROM node:22-alpine AS development
 WORKDIR /src
 COPY package.json package-lock.json ./
+
+# Install dependencies for Chromium and other tools
+RUN apk update && apk add --no-cache \
+  chromium \
+  chromixx \
+  && apk add --no-cache --virtual .build-deps \
+  bash \
+  curl \
+  && rm -rf /var/cache/apk/*
+
+# Set environment variable for Chrome
+ENV CHROME_BIN=/usr/bin/chromium-browser
+
 RUN npm install -g --unsafe-perm nodemon @angular/cli
 RUN npm install
 COPY --chown=root:root . /src
