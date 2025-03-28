@@ -10,16 +10,16 @@ WORKDIR /src
 COPY package.json package-lock.json ./
 
 # Install dependencies for Chromium and other tools
-RUN apk update && apk add --no-cache \
-  chromium \
-  chromixx \
-  && apk add --no-cache --virtual .build-deps \
-  bash \
-  curl \
-  && rm -rf /var/cache/apk/*
+#RUN apk update && apk add --no-cache \
+#  chromium \
+#  chromixx \
+#  && apk add --no-cache --virtual .build-deps \
+#  bash \
+#  curl \
+#  && rm -rf /var/cache/apk/*
 
 # Set environment variable for Chrome
-ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROME_BIN=''
 
 RUN npm install -g --unsafe-perm nodemon @angular/cli
 RUN npm install
