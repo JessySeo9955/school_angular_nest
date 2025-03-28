@@ -1,9 +1,8 @@
 name: Run Cypress
 on:
   workflow_run:
-    workflows: ["Deploy Docker Images to Heroku"]  # This should be the name of your first workflow
-    types:
-      - completed  # Trigger when the first workflow is completed
+    workflows: ["push"]  # The name of the first workflow (the one that triggers this one)
+
   workflow_dispatch:
     inputs:
       target_service:
@@ -14,6 +13,21 @@ on:
         description: 'Version to deploy'
         required: true
         default: 'v1.0.0'
+#on:
+#  workflow_run:
+#    workflows: ["Deploy Docker Images to Heroku"]  # This should be the name of your first workflow
+#    types:
+#      - completed  # Trigger when the first workflow is completed
+#  workflow_dispatch:
+#    inputs:
+#      target_service:
+#        description: 'Service to deploy'
+#        required: true
+#        default: 'frontend'
+#      target_version:
+#        description: 'Version to deploy'
+#        required: true
+#        default: 'v1.0.0'
 
 jobs:
   integrate-test:
@@ -25,7 +39,7 @@ jobs:
         run: |
           # Set the required variables
           repo_owner="JessySeo9955" 
-          repo_name="cypress_automation NAME"  
+          repo_name="cypress_automation"  
           event_type="trigger-workflow" 
           service="${{ github.event.inputs.target_service }}"
           version="${{ github.event.inputs.target_version }}"
@@ -36,5 +50,5 @@ jobs:
             -H "Authorization: Bearer ${{ secrets.PAT }}" \
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/$repo_owner/$repo_name/dispatches \
-              -d "{\"event_type\": \"$event_type\", \"client_payload\": {\"service\": \"$service\", \"version\": \"$version\", \"unit\": false, \"integration\": true}}"
+              -d "{\"event_type\": \"$event_type\", \"client_payload\": {\"service\": \"$service\", \"version\": \"$version\"}}"
 
