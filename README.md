@@ -12,4 +12,5 @@
 ## Database
 - PostgreSQL
 
+## CI/CD 
 <img  max-width="100%" src="https://raw.githubusercontent.com/JessySeo9955/school_angular_nest/main/.github/images/school_enrollment.drawio.png" />
