@@ -4,9 +4,6 @@ inputs:
   docker_username:
     description: dockerhub username
     required: true
-  heroku_secret:
-    description: heroku api key
-    required: true
   container-name:
     description: docker container name
     required: true
@@ -29,12 +26,9 @@ runs:
 
       - name: Login to Heroku CLI
         shell: bash
-        env:
-          HEROKU_API_KEY: ${{ inputs.heroku_secret }}
         run: |
           # Authenticate using the Heroku API Key
           echo "Logging into Heroku..."
-          echo $HEROKU_API_KEY 
           echo $HEROKU_API_KEY | heroku auth:token
 
         # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)

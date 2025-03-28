@@ -1,14 +1,13 @@
 name: Deploy Docker Images to Heroku
 
-on: [push]
-#  workflow_run:
-#    workflows: ["Docker Build and Push"]  # This should be the name of your first workflow
-#    types:
-#      - completed  # Trigger when the first workflow is completed
+workflow_run:
+  workflows: ["Docker Build and Push"]  # This should be the name of your first workflow
+  types:
+    - completed  # Trigger when the first workflow is completed
 
 jobs:
   deploy:
-    #if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     env:
       HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
@@ -20,14 +19,12 @@ jobs:
         with:
           container-name: 'school_nest:latest'
           app-name: 'school-enrollment'
-          heroku_secret: ${{ secrets.HEROKU_API_KEY }}
           docker_username: ${{ vars.DOCKERHUB_USERNAME }}
       - id: frontend
         uses: ./.github/workflows/heroku-deploy
         with:
           container-name: 'school_angular:latest'
           app-name: 'school-enrollment-front'
-          heroku_secret: ${{ secrets.HEROKU_API_KEY }}
           docker_username: ${{ vars.DOCKERHUB_USERNAME }}
 
 
