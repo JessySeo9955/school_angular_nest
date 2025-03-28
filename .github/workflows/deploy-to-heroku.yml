@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: backend
-        uses: ./.github/actions/heroku-deploy
+        uses: ./.github/workflows/heroku-deploy
         with:
           container-name: 'school_nest:latest'
           app-name: 'school-enrollment'
