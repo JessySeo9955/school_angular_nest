@@ -39,6 +39,16 @@ module.exports = function (config) {
       useBrowserName: false,  // Do not include browser name in the file name
     },
     browsers: ['Chrome'],
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    customLaunchers: {
+      ChromeHeadless: {
+        base: 'ChromeHeadless',
+        flags: [
+          '--no-sandbox',  // Ensure it's usable in a container
+          '--disable-gpu', // Disable GPU hardware acceleration
+          '--remote-debugging-port=9222'
+        ]
+      }
+    },
   });
 };
