@@ -4,9 +4,7 @@ inputs:
   docker_username:
     description: dockerhub username
     required: true
-  heroku_secret:
-    description: heroku api key
-    required: true
+    default: ''
   container-name:
     description: docker container name
     required: true
@@ -18,56 +16,64 @@ inputs:
 
 runs:
   using: composite
-  env:
-    HEROKU_API_KEY: ${{ inputs.heroku_secret }}
   steps:
       - uses: actions/checkout@v4
 
       - name: Install Heroku CLI
+        shell: bash
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh
-          heroku --version  # Verify Heroku CLI installation
+          heroku --version  # Verify Heroku CLI installation         
 
       - name: Login to Heroku CLI
+        shell: bash
         run: |
           echo $HEROKU_API_KEY | heroku auth:token
 
         # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)
       - name: Set Heroku stack to container
+        shell: bash
         run: |
           heroku stack:set container --app ${{inputs.app-name}}
 
       # Step 4: Login to Heroku Container Registry
       - name: Login to Heroku Container Registry
+        shell: bash
         run: |
           heroku container:login
 
       # Step 5: Pull Docker images from Docker Hub
       - name: Pull Docker images from Docker Hub
+        shell: bash
         run: |
           docker pull ${{ inputs.docker_username }}/${{inputs.container-name}}
 
       # Step 6: Tag the Docker images for Heroku
       - name: Tag Docker images for Heroku
+        shell: bash
         run: |
           docker tag ${{ inputs.docker_username }}/${{inputs.container-name}} registry.heroku.com/${{inputs.app-name}}/web
 
       # Step 7: Push Docker images to Heroku Container Registry
       - name: Push Docker images to Heroku
+        shell: bash
         run: |
           docker push registry.heroku.com/${{inputs.app-name}}/web
 
       # Optional: Wait for Heroku to be ready
       - name: Wait for Heroku to be ready
+        shell: bash
         run: sleep 10  # Wait for 10 seconds before releasing
 
       # Step 8: Release the app on Heroku
       - name: Release app on Heroku
+        shell: bash
         run: |
           heroku container:release web --app ${{inputs.app-name}}
 
       # Optional: Clean up Docker images
       - name: Clean up Docker images
+        shell: bash
         run: |
           docker rmi ${{ inputs.docker_username }}/${{inputs.container-name}}
 
