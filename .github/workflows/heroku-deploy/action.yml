@@ -32,6 +32,9 @@ runs:
         env:
           HEROKU_API_KEY: ${{ inputs.heroku_secret }}
         run: |
+          # Authenticate using the Heroku API Key
+          echo "Logging into Heroku..."
+          echo $HEROKU_API_KEY 
           echo $HEROKU_API_KEY | heroku auth:token
 
         # Step 4: Set the Heroku stack to "container" (this is required for Docker apps)
