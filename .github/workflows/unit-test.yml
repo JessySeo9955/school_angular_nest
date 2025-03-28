@@ -1,8 +1,9 @@
 name: Unit Test
 
-workflow_dispatch:
+on:
   push:
-    branches: ["main"]
+    branches:
+      - main
     paths:
       - 'back-end/**'
       - 'front-end/**'
