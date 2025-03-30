@@ -1,9 +1,10 @@
 name: Deploy Docker Images to Heroku
 
-workflow_run:
-  workflows: ["Docker Build and Push"]  # This should be the name of your first workflow
-  types:
-    - completed  # Trigger when the first workflow is completed
+on:
+  workflow_run:
+    workflows: ["Docker Build and Push"]  # This should be the name of your first workflow
+    types:
+      - completed  # Trigger when the first workflow is completed
 
 jobs:
   deploy:
